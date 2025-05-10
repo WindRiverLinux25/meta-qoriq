@@ -2,12 +2,13 @@
 
 require recipes-security/optee/optee-client.inc
 
-FILESEXTRAPATHS:prepend := "${THISDIR}/optee-client:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/optee-client:${LAYER_PATH_meta-arm}/recipes-security/optee/optee-client:"
 
 DEPENDS = "util-linux-libuuid"
 
 SRC_URI:remove = "git://github.com/OP-TEE/optee_client.git;branch=master;protocol=https"
 SRC_URI:prepend = "${OPTEE_CLIENT_SRC};branch=${OPTEE_CLIENT_BRANCH} "
+SRC_URI:append = " file://0001-tee-supplicant-update-udev-systemd-install-code.patch"
 
 OPTEE_CLIENT_SRC ?= "git://github.com/nxp-qoriq/optee_client.git;protocol=https"
 
