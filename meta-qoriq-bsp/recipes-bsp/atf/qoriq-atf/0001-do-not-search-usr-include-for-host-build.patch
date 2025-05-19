@@ -1,0 +1,39 @@
+From 35b87c310796f74f1ca65db6b98f41d1b30d3a5e Mon Sep 17 00:00:00 2001
+From: Meng Li <Meng.Li@windriver.com>
+Date: Mon, 19 May 2025 05:59:40 +0000
+Subject: [PATCH] do not search /usr/include for host build
+
+While using third party host gcc (provided by buildtools-extend),
+search /usr/include for host build will fail
+...
+/usr/include/openssl/macros.h:147:4: error: #error "OPENSSL_API_COMPAT
+expresses an impossible API compatibility level"
+  147 | #  error "OPENSSL_API_COMPAT expresses an impossible API
+      compatibility level"
+...
+
+Do not search /usr/include for host build to workaround
+
+Upstream-Status: Pending
+
+Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+Signed-off-by: Meng Li <Meng.Li@windriver.com>
+---
+ tools/fiptool/Makefile | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/tools/fiptool/Makefile b/tools/fiptool/Makefile
+index fda7c77..2959d67 100644
+--- a/tools/fiptool/Makefile
++++ b/tools/fiptool/Makefile
+@@ -47,7 +47,6 @@ DEFINES += -DUSING_OPENSSL3=$(USING_OPENSSL3)
+ # located under the main project directory (i.e.: ${OPENSSL_DIR}, not
+ # ${OPENSSL_DIR}/lib/).
+ LDOPTS := -L${OPENSSL_DIR}/lib -L${OPENSSL_DIR} -lcrypto
+-INCLUDE_PATHS += -I${OPENSSL_DIR}/include
+ endif # STATIC
+ 
+ HOSTCCFLAGS += ${DEFINES}
+-- 
+2.48.1
+
