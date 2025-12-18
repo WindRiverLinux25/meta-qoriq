@@ -25,7 +25,7 @@ ITB_IMAGE = "fsl-image-kernelitb"
 DEPENDS = "u-boot-mkimage-native qoriq-cst-native qoriq-atf"
 DEPENDS:append:ls1028ardb = " dp-firmware-cadence"
 DEPENDS:ls1021atwr = "u-boot-mkimage-native qoriq-cst-native u-boot"
-do_deploy[depends] += "virtual/kernel:do_deploy"
+do_deploy[depends] += "virtual/kernel:do_deploy fm-ucode:do_deploy qe-ucode:do_deploy qoriq-atf:do_deploy ls2-phy:do_deploy"
 
 BOOT_TYPE ??= ""
 BOOT_TYPE:ls1043ardb ?= "nor sd nand"
