@@ -11,4 +11,5 @@ SRC_URI:append:qoriq-arm64 = "\
 
 SRC_URI:append = "\
     file://CVE-2024-42040.patch \
+    file://CVE-2025-24857.patch \
 "
